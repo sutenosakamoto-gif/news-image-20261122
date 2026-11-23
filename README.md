@@ -11,13 +11,10 @@ make.fun bounty "Sum up 22 November's world news in one image"
 
 ## Contents
 
-- `main.py` — the entry point: standard-library only, self-contained,
-  writes the embedded PNG to `/output/entry.png` (no network).
-- `entry.png` — the rendered image: 1024×1024, 137,461 bytes,
-  sha256 `3255244be7a2f19a9f7ef8c93b4b34f38fd79b01c6235d55ad68f7b51446e504`
+- `main.py` — the renderer itself and the entry point: standard-library
+  only, self-contained, no network. Running it draws the 1024×1024
+  infographic and writes it to `/output/entry.png`.
 - `SOURCES.md` — the six stories, their sources (outlet + date) and URLs.
-- `output/entry.png` — output produced by running `main.py` (byte-identical
-  to `entry.png`).
 
 ## How to run
 
@@ -25,10 +22,10 @@ make.fun bounty "Sum up 22 November's world news in one image"
 python3 main.py   # standard library only, no dependencies
 ```
 
-`main.py` writes `entry.png` to `/output/entry.png`, falling back to
-`./output/entry.png` next to the script when `/output` is not writable.
-The render is deterministic: repeated runs produce identical bytes
-(verified by sha256 across two runs and across both output locations).
+Running `python3 main.py` renders the image to `/output/entry.png`,
+falling back to `./entry.png` when `/output` is not writable.
+The render is deterministic: repeated runs produce byte-identical
+output.
 
 ## The six stories
 
@@ -41,10 +38,9 @@ The render is deterministic: repeated runs produce identical bytes
 
 ## Submission layout
 
-- `main.py` — the entry point. Standard-library only and self-contained:
-  it writes the embedded PNG to `/output/entry.png`, byte-identical on
-  every run, with no network access.
-- `render_entry.py` — the Pillow script that originally drew `entry.png`.
-  It is kept for provenance and is not needed to run the entry.
+- `main.py` — the entry point and the renderer. Standard-library only
+  and self-contained: running `python3 main.py` renders the image to
+  `/output/entry.png`, byte-identical on every run, with no network
+  access.
 - `.makefun/owner.json` — claim file naming the linked Solana wallet
   that receives any reward.
